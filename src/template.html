@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oxford 3000 — كلماتي</title>
+<style>
+:root{
+  --bg:#f6f5f1; --panel:#ffffff; --panel2:#f0eee8; --ink:#1d1d1f; --muted:#6b6a66; --line:#e3e0d8;
+  --accent:#2457d6; --accent-ink:#fff; --accent-soft:#e7edfc;
+  --good:#1f8a4c; --good-soft:#e3f4ea; --bad:#c2412d; --bad-soft:#fbe9e5; --learn:#b7791f; --learn-soft:#fbf1df;
+  --A1:#2f9e66; --A2:#1f7fb8; --B1:#8a55c9; --B2:#c2412d; --C1:#6b4f2a; --C2:#333;
+  --shadow:0 1px 2px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.05);
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#121214; --panel:#1c1c1f; --panel2:#26262a; --ink:#ececee; --muted:#9a9aa2; --line:#2f2f34;
+    --accent:#6d93ff; --accent-ink:#0b1020; --accent-soft:#1f2740;
+    --good:#4cc27e; --good-soft:#18301f; --bad:#ff7a63; --bad-soft:#3a1d18; --learn:#f0b44c; --learn-soft:#3a2c12;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121214; --panel:#1c1c1f; --panel2:#26262a; --ink:#ececee; --muted:#9a9aa2; --line:#2f2f34;
+  --accent:#6d93ff; --accent-ink:#0b1020; --accent-soft:#1f2740;
+  --good:#4cc27e; --good-soft:#18301f; --bad:#ff7a63; --bad-soft:#3a1d18; --learn:#f0b44c; --learn-soft:#3a2c12;
+  --shadow:0 1px 2px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+body{font:15px/1.6 -apple-system,BlinkMacSystemFont,"SF Pro Text","SF Arabic","Geeza Pro","Segoe UI",Tahoma,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+input,select{font:inherit;color:inherit}
+.en{direction:ltr;unicode-bidi:isolate;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif}
+.app{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
+/* sidebar */
+.side{position:sticky;top:0;height:100vh;overflow:auto;background:var(--panel);border-inline-end:1px solid var(--line);padding:18px 14px 30px}
+.brand{display:flex;align-items:center;gap:10px;padding:2px 6px 14px}
+.logo{width:36px;height:36px;border-radius:10px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:800;font-size:14px}
+.brand h1{font-size:16px;margin:0;line-height:1.2}
+.brand small{color:var(--muted);font-size:12px}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--panel2);border-radius:11px;padding:3px;gap:3px;margin:4px 0 14px}
+.seg button{padding:7px 6px;border-radius:9px;font-size:13px;color:var(--muted);font-weight:600}
+.seg button.on{background:var(--panel);color:var(--ink);box-shadow:var(--shadow)}
+.label{font-size:11.5px;color:var(--muted);font-weight:700;letter-spacing:.02em;margin:14px 8px 6px}
+.nav button{display:flex;width:100%;align-items:center;justify-content:space-between;padding:8px 10px;border-radius:10px;font-size:14px;text-align:start}
+.nav button:hover{background:var(--panel2)}
+.nav button.on{background:var(--accent-soft);color:var(--accent);font-weight:700}
+.nav .cnt{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;background:var(--panel2);border-radius:20px;padding:0 8px;min-width:30px;text-align:center}
+.nav button.on .cnt{background:var(--panel);color:var(--accent)}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-inline-end:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 4px}
+.chip{padding:5px 11px;border-radius:20px;background:var(--panel2);font-size:13px;font-weight:600;color:var(--muted);border:1px solid transparent}
+.chip.on{background:var(--panel);border-color:var(--accent);color:var(--accent)}
+.prog{padding:2px 6px}
+.prow{display:grid;grid-template-columns:34px 1fr 64px;align-items:center;gap:8px;font-size:12.5px;margin:7px 0}
+.bar{height:7px;border-radius:9px;background:var(--panel2);overflow:hidden;display:flex}
+.bar i{display:block;height:100%}
+.prow .n{color:var(--muted);font-variant-numeric:tabular-nums;text-align:end;direction:ltr}
+.lvl{display:inline-block;font-size:11px;font-weight:800;padding:1px 7px;border-radius:6px;color:#fff;direction:ltr}
+.sidefoot{margin-top:18px;display:grid;gap:6px}
+.ghost{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;font-size:13px;color:var(--muted);width:100%;text-align:start}
+.ghost:hover{background:var(--panel2);color:var(--ink)}
+/* main */
+.main{min-width:0;padding:18px 28px 80px}
+.top{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.top h2{margin:0;font-size:20px;flex:1;min-width:180px}
+.top h2 small{display:block;font-size:12.5px;color:var(--muted);font-weight:500}
+.search{flex:0 1 260px;display:flex;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:0 10px}
+.search input{border:0;outline:0;background:none;padding:8px 6px;width:100%}
+.vseg{display:flex;background:var(--panel2);border-radius:11px;padding:3px;gap:3px}
+.vseg button{padding:6px 12px;border-radius:9px;font-size:13px;font-weight:600;color:var(--muted)}
+.vseg button.on{background:var(--panel);color:var(--ink);box-shadow:var(--shadow)}
+.iconbtn{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:var(--panel);border:1px solid var(--line)}
+.iconbtn:hover{border-color:var(--accent)}
+.hint{font-size:12.5px;color:var(--muted);margin:-4px 0 12px}
+/* list */
+.list{display:grid;gap:8px}
+.row{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;transition:border-color .15s}
+.row.open{border-color:color-mix(in srgb,var(--accent) 35%,var(--line))}
+.rhead{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.wbox{display:flex;align-items:baseline;gap:10px;flex:1;min-width:200px;direction:ltr;justify-content:flex-end;flex-wrap:wrap}
+.word{font-size:19px;font-weight:700;letter-spacing:-.01em}
+.sense{font-size:12.5px;color:var(--muted)}
+.ipa{font-size:13px;color:var(--muted)}
+.tr{font-size:14px;color:var(--muted);direction:rtl}
+.pos{font-size:12px;color:var(--muted);font-style:italic}
+.speak{width:34px;height:34px;border-radius:50%;display:inline-grid;place-items:center;background:var(--accent-soft);color:var(--accent);flex:none}
+.speak:hover{filter:brightness(.95)}
+.speak.sm{width:28px;height:28px}
+.speak svg{width:16px;height:16px}
+.speak.sm svg{width:14px;height:14px}
+.acts{display:flex;gap:6px;flex-wrap:wrap}
+.btn{padding:7px 13px;border-radius:10px;font-size:13.5px;font-weight:700;border:1px solid var(--line);background:var(--panel)}
+.btn:hover{border-color:var(--muted)}
+.btn.k{color:var(--good)} .btn.k.on,.btn.k.solid{background:var(--good);border-color:var(--good);color:#fff}
+.btn.u{color:var(--bad)} .btn.u.on,.btn.u.solid{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn.l{color:var(--learn)} .btn.l.on,.btn.l.solid{background:var(--learn);border-color:var(--learn);color:#fff}
+.btn.p{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.badge{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:20px}
+.badge.k{background:var(--good-soft);color:var(--good)}
+.badge.u{background:var(--bad-soft);color:var(--bad)}
+.badge.l{background:var(--learn-soft);color:var(--learn)}
+.det{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line);animation:fade .2s ease}
+@keyframes fade{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:none}}
+.meaning{font-size:17px;font-weight:700;margin-bottom:4px}
+.exp{background:var(--accent-soft);border-radius:10px;padding:8px 12px;font-size:14px;margin:8px 0}
+.exs{display:grid;gap:8px;margin-top:10px}
+.ex{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start;background:var(--panel2);border-radius:11px;padding:9px 12px}
+.ex .en{font-size:15px;text-align:left}
+.ex .ar{font-size:13.5px;color:var(--muted);margin-top:2px}
+.ex b{color:var(--accent)}
+.more{display:block;margin:16px auto;padding:10px 22px}
+.empty{text-align:center;color:var(--muted);padding:60px 10px}
+.empty b{display:block;font-size:17px;color:var(--ink);margin-bottom:4px}
+/* cards */
+.deck{max-width:640px;margin:10px auto 0}
+.dprog{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted);margin-bottom:10px}
+.dprog .bar{flex:1}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:30px 28px 24px;min-height:380px;display:flex;flex-direction:column}
+.card .top2{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px}
+.card .cw{text-align:center;direction:ltr}
+.card .cw .word{font-size:40px;letter-spacing:-.02em}
+.card .cw .ipa{font-size:16px;margin-top:4px}
+.card .tr{text-align:center;font-size:17px;margin-top:4px}
+.card .speak.big{width:52px;height:52px;margin:16px auto 0;display:grid}
+.card .speak.big svg{width:22px;height:22px}
+.card .det{border-top:1px dashed var(--line)}
+.card .meaning{text-align:center;font-size:21px}
+.card .pos{text-align:center}
+.card .grow{flex:1}
+.card .cacts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.card .cacts .btn{padding:13px;font-size:15.5px;border-radius:13px}
+.card .cacts .wide{grid-column:1/-1}
+.navrow{display:flex;justify-content:space-between;align-items:center;margin-top:12px;gap:8px}
+.kbd{font-size:12px;color:var(--muted);text-align:center;margin-top:12px}
+.kbd kbd{font:inherit;font-size:11px;border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;background:var(--panel)}
+/* dialog */
+dialog{border:1px solid var(--line);border-radius:18px;background:var(--panel);color:var(--ink);padding:22px;max-width:440px;width:calc(100% - 32px)}
+dialog::backdrop{background:rgba(0,0,0,.35)}
+dialog h3{margin:0 0 14px}
+.field{display:grid;gap:5px;margin-bottom:14px;font-size:13.5px}
+.field select,.field input[type=range]{width:100%}
+.field select{padding:8px;border-radius:9px;border:1px solid var(--line);background:var(--panel2)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:11px;font-size:13.5px;opacity:0;transition:.2s;pointer-events:none;z-index:9;display:flex;align-items:center;gap:14px;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%);pointer-events:auto}
+.toast button{color:var(--bg);font-weight:800;text-decoration:underline;padding:2px 4px}
+/* filter bar */
+.fbar{display:grid;gap:8px;margin:0 0 12px}
+.pills{display:flex;gap:6px;flex-wrap:wrap}
+.pill{padding:6px 12px;border-radius:20px;background:var(--panel);border:1px solid var(--line);font-size:13.5px;font-weight:600;color:var(--muted);display:inline-flex;align-items:center;gap:7px}
+.pill:hover{color:var(--ink)}
+.pill .cnt{font-size:11.5px;background:var(--panel2);color:var(--muted);border-radius:20px;padding:0 7px;font-variant-numeric:tabular-nums;min-width:22px;text-align:center}
+.pill .dot{margin:0;width:7px;height:7px}
+.pill.on{background:var(--c,var(--accent));border-color:var(--c,var(--accent));color:#fff}
+.pill.on .dot{background:#fff!important}
+.pill.on .cnt{background:rgba(255,255,255,.25);color:#fff}
+.pill.lv.on{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.pill.lv.on .cnt{background:rgba(127,127,127,.3);color:var(--bg)}
+.pills .sep{width:1px;background:var(--line);margin:4px 2px}
+.sync{font-size:12.5px;color:var(--muted);padding:8px 10px;border-radius:10px;background:var(--panel2)}
+.sync[data-st="ok"]{color:var(--good);background:var(--good-soft)}
+.sync[data-st="err"]{color:var(--learn);background:var(--learn-soft)}
+.sync:empty{display:none}
+.sync{cursor:pointer}
+.small{font-size:12.5px;color:var(--muted);margin-top:5px}
+.tok{width:100%;padding:9px 10px;border-radius:9px;border:1px solid var(--line);background:var(--panel2);direction:ltr;font-size:13px}
+.row.gone{opacity:0;transform:translateX(-14px);transition:opacity .18s,transform .18s}
+.mtoggle{display:none}
+@media (max-width:860px){
+  .app{grid-template-columns:1fr}
+  .side{position:fixed;inset:0 0 0 auto;width:min(300px,86vw);z-index:8;transform:translateX(100%);transition:transform .2s;visibility:hidden}
+  .side.open{transform:none;visibility:visible;box-shadow:0 0 0 100vmax rgba(0,0,0,.3)}
+  .mtoggle{display:grid}
+  .main{padding:14px 16px 80px}
+  .search{flex:1 1 100%;order:5}
+  .card{padding:24px 18px 18px}
+  .card .cw .word{font-size:32px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side" id="side">
+    <div class="brand"><div class="logo en">3K</div><div><h1>Oxford 3000</h1><small>كلماتي من A1 إلى B2</small></div></div>
+    <div class="seg" id="dsSeg">
+      <button data-ds="ox" class="on">Oxford 3000</button>
+      <button data-ds="work">العمل والتقنية</button>
+    </div>
+    <div class="label">تقدّمك</div>
+    <div class="prog" id="prog"></div>
+    <div class="sidefoot">
+      <div class="sync" id="sync"></div>
+      <button class="ghost" id="bSettings">⚙︎ إعدادات الصوت والمظهر</button>
+      <button class="ghost" id="bExport">⬇︎ حفظ نسخة احتياطية من التقدم</button>
+      <button class="ghost" id="bImport">⬆︎ استرجاع نسخة احتياطية</button>
+      <input type="file" id="fImport" accept="application/json,.json" hidden>
+    </div>
+  </aside>
+  <main class="main">
+    <div class="top">
+      <button class="iconbtn mtoggle" id="bMenu" aria-label="القائمة">☰</button>
+      <h2 id="title"></h2>
+      <label class="search"><span>⌕</span><input id="q" type="search" placeholder="ابحث بالإنجليزي أو العربي" autocomplete="off"></label>
+      <div class="vseg" id="viewSeg"><button data-v="list">قائمة</button><button data-v="cards">بطاقات</button></div>
+    </div>
+    <div class="fbar" id="fbar"></div>
+    <div class="hint" id="hint"></div>
+    <div id="view"></div>
+  </main>
+</div>
+
+<dialog id="dlg">
+  <h3>الإعدادات</h3>
+  <div class="field"><span>اللهجة</span>
+    <select id="sAccent"><option value="en-US">أمريكية (en-US)</option><option value="en-GB">بريطانية (en-GB)</option></select></div>
+  <div class="field"><span>الصوت</span><select id="sVoice"></select></div>
+  <div class="field"><span>سرعة النطق: <b id="sRateV"></b></span><input type="range" id="sRate" min="0.5" max="1.2" step="0.05"></div>
+  <div class="field"><span>ترتيب البطاقات</span>
+    <select id="sOrder"><option value="seq">بالترتيب</option><option value="shuffle">عشوائي</option></select></div>
+  <div class="field"><span>المظهر</span>
+    <select id="sTheme"><option value="">تلقائي</option><option value="light">فاتح</option><option value="dark">داكن</option></select></div>
+  <div class="field"><span>المزامنة بين الأجهزة (GitHub)</span><div id="ghBox"></div></div>
+  <div class="field"><label><input type="checkbox" id="sTrHide"> أخفِ النطق العربي لين أكشف الكلمة</label></div>
+  <div style="display:flex;gap:8px;justify-content:space-between;margin-top:6px">
+    <button class="btn" id="bReset" style="color:var(--bad)">مسح كل التقدم</button>
+    <button class="btn p" id="bClose">تم</button>
+  </div>
+</dialog>
+<div class="toast" id="toast"><span></span><button type="button" hidden>تراجع</button></div>
+
+<script>
+const WORDS = /*__WORDS__*/[];
+const WORK = /*__WORK__*/[];
+</script>
+<script>
+(function(){
+"use strict";
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const KEY = "ox3000.progress.v1", SKEY = "ox3000.settings.v1";
+const LV_OX = ["A1","A2","B1","B2"], LV_WORK = ["A2","B1","B2","C1","C2"];
+const CATS = {office:"بيئة العمل والمكتب",comm:"الاجتماعات والتواصل",business:"الأعمال والإدارة",banking:"البنوك والمالية",tech:"التقنية والبرمجة",ios:"تطوير iOS وApple"};
+const SECTIONS = [
+  ["todo","لسا ما أعرفها","var(--accent)"],
+  ["u","ما أعرفها","var(--bad)"],
+  ["l","تعلمتها","var(--learn)"],
+  ["k","أعرفها","var(--good)"],
+  ["all","الكل","var(--muted)"],
+];
+const SPK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>';
+
+// ---------- data ----------
+function clean(w){ return w.replace(/(\D)\d+\b/g,"$1").replace(/\s*\(.*?\)\s*/g," ").trim(); }
+function senseOf(w){ const m = w.match(/\(([^)]*)\)/); return m ? m[1] : ""; }
+const items = {
+  ox: WORDS.map(o => ({key:"o"+o.i, w:clean(o.w), sense:senseOf(o.w), raw:o.w, pos:o.p, lvl:o.l, ipa:o.ipa, ar:o.ar, tr:o.tr, ex:o.ex||[], exp:""})),
+  work: WORK.map(o => ({key:o.i, w:o.w, sense:"", raw:o.w, pos:"", cat:o.c, lvl:o.l, ipa:o.ipa, ar:o.ar, tr:o.tr, ex:o.ex||[], exp:o.x||""})),
+};
+const byKey = {}; for (const ds in items) for (const it of items[ds]) byKey[it.key] = it;
+
+// ---------- storage ----------
+function readJSON(k, d){ try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch(e){ return d; } }
+function writeJSON(k, v){ try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e){ return false; } }
+let P = readJSON(KEY, null) || {v:1, s:{}, t:{}};
+P.s = P.s || {}; P.t = P.t || {};
+let S = Object.assign({accent:"en-US", voice:"", rate:0.9, order:"seq", theme:"", auto:true, trHide:false,
+  ds:"ox", sec:"todo", lvl:"all", cat:"all", view:"cards", pos:{}}, readJSON(SKEY, {}));
+if (!SECTIONS.some(s => s[0] === S.sec)) S.sec = "todo";
+let storageOK = writeJSON("ox3000.test", 1);
+function saveP(){ if(!writeJSON(KEY, P) && !cloud) toast("تعذّر الحفظ في المتصفح — احفظ نسخة احتياطية"); schedulePush(); }
+
+// ---------- cloud sync (when opened as a claude.ai artifact) ----------
+let cloud = null, cloudBusy = false, cloudDirty = false, cloudTimer = null;
+function setCloud(st){
+  const el = document.getElementById("sync"); if (!el) return;
+  el.dataset.st = st;
+  el.onclick = () => $("#bSettings").click();
+  el.textContent = {local:"💾 محفوظ على هذا الجهاز فقط — اضغط هنا لربط المزامنة", loading:"☁︎ جاري المزامنة…", ok:"☁︎ متزامن — كمّل من أي جهاز",
+    saving:"☁︎ جاري الحفظ…", err:"⚠︎ تعذّرت المزامنة الحين — محفوظ على الجهاز وبيرفع لاحقاً"}[st] || "";
+}
+function mergeRemote(r){
+  let changed = false, localNewer = false;
+  const rs = (r && r.s) || {}, rt = (r && r.t) || {};
+  for (const k in rt){
+    if (!byKey[k] || typeof rt[k] !== "number") continue;
+    if (!P.t[k] || rt[k] > P.t[k]){
+      if (["k","u","l"].includes(rs[k])) P.s[k] = rs[k]; else delete P.s[k];
+      P.t[k] = rt[k]; changed = true;
+    }
+  }
+  for (const k in P.t){ if (!rt[k] || P.t[k] > rt[k]) { localNewer = true; break; } }
+  return {changed, localNewer};
+}
+async function pushCloud(){
+  if (!cloud) return;
+  if (cloudBusy){ cloudDirty = true; return; }
+  cloudBusy = true; setCloud("saving");
+  try { await cloud.push(); setCloud("ok"); }
+  catch(e){ if (e && e.status === 401) ghBadToken(); else setCloud("err"); }
+  cloudBusy = false;
+  if (cloudDirty){ cloudDirty = false; pushCloud(); }
+}
+function schedulePush(){ if (!cloud) return; clearTimeout(cloudTimer); cloudTimer = setTimeout(pushCloud, cloud.delay || 1200); }
+
+// ---------- GitHub Gist sync (when hosted as a normal website) ----------
+const GHKEY = "ox3000.github.v1", GFILE = "oxford3000-progress.json";
+let gh = readJSON(GHKEY, null);
+async function ghApi(path, opts){
+  opts = opts || {};
+  const headers = {"Accept":"application/vnd.github+json", "Authorization":"Bearer " + gh.token, "X-GitHub-Api-Version":"2022-11-28"};
+  if (opts.body) headers["Content-Type"] = "application/json";
+  const r = await fetch("https://api.github.com" + path, {method: opts.method || "GET", body: opts.body, headers, cache:"no-store"});
+  if (!r.ok){ const e = new Error("GitHub " + r.status); e.status = r.status; throw e; }
+  return r.json();
+}
+async function ghFindOrCreate(){
+  for (let page = 1; page <= 10; page++){
+    const list = await ghApi("/gists?per_page=100&page=" + page);
+    const g = list.find(g => g.files && g.files[GFILE]);
+    if (g) return g.id;
+    if (list.length < 100) break;
+  }
+  const g = await ghApi("/gists", {method:"POST", body: JSON.stringify({description:"Oxford 3000 — progress (synced by my vocab page)", public:false,
+    files:{[GFILE]:{content: JSON.stringify({v:1, s:P.s, t:P.t})}}})});
+  return g.id;
+}
+async function ghPull(){
+  const g = await ghApi("/gists/" + gh.gist);
+  const f = g.files && g.files[GFILE]; if (!f) return {};
+  let txt = f.content;
+  if (f.truncated) txt = await (await fetch(f.raw_url, {cache:"no-store"})).text();
+  try { return JSON.parse(txt); } catch(e){ return {}; }
+}
+async function ghSync(forcePush){            // pull → merge → push only if this device has newer changes
+  const {changed, localNewer} = mergeRemote(await ghPull());
+  if (changed){ writeJSON(KEY, P); render(); }
+  if (localNewer || forcePush)
+    await ghApi("/gists/" + gh.gist, {method:"PATCH", body: JSON.stringify({files:{[GFILE]:{content: JSON.stringify({v:1, s:P.s, t:P.t})}}})});
+}
+function ghBadToken(){ cloud = null; setCloud("err"); toast("GitHub رفض التوكن — اربطه من جديد من الإعدادات"); }
+let ghListening = false;
+async function startGist(){
+  cloud = {push: () => ghSync(false), delay: 2000};
+  setCloud("loading");
+  try { await ghSync(false); setCloud("ok"); }
+  catch(e){ if (e && e.status === 401) ghBadToken(); else setCloud("err"); }
+  if (!ghListening){
+    ghListening = true;
+    document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && cloud && gh) pushCloud(); });
+  }
+}
+function renderGhBox(){
+  const box = $("#ghBox"); if (!box) return;
+  if (window.claude && typeof window.claude.use === "function"){ box.innerHTML = '<div class="small">هذي النسخة تحفظ في حسابك على Claude.</div>'; return; }
+  if (gh && gh.gist){
+    box.innerHTML = '<div class="small">✓ مربوط بحساب GitHub — التقدم ينحفظ في Gist خاص فيك.</div><button class="btn" id="ghOff" style="margin-top:6px">فصل الربط على هذا الجهاز</button>';
+    $("#ghOff").onclick = () => { try { localStorage.removeItem(GHKEY); } catch(e){} gh = null; cloud = null; setCloud("local"); renderGhBox(); };
+  } else {
+    box.innerHTML = '<input id="ghTok" type="password" autocomplete="off" spellcheck="false" placeholder="الصق GitHub token هنا (يبدأ بـ ghp_ أو github_pat_)" class="tok">' +
+      '<button class="btn p" id="ghOn" style="margin-top:6px">ربط ومزامنة</button>' +
+      '<div class="small">مرة وحدة على كل جهاز. التوكن يكفيه صلاحية Gist بس، وينحفظ على هذا الجهاز فقط.</div>';
+    $("#ghOn").onclick = async () => {
+      const token = $("#ghTok").value.trim(); if (!token) return;
+      $("#ghOn").disabled = true; $("#ghOn").textContent = "جاري الربط…";
+      gh = {token};
+      try {
+        gh.gist = await ghFindOrCreate();
+        writeJSON(GHKEY, gh);
+        await startGist(); renderGhBox(); toast("✓ تم الربط — تقدمك صار يتزامن");
+      } catch(e){
+        gh = null; renderGhBox();
+        toast(e && e.status === 401 ? "التوكن غير صحيح" : e && (e.status === 403 || e.status === 404) ? "التوكن ما عنده صلاحية Gist" : "تعذّر الاتصال بـ GitHub");
+      }
+    };
+  }
+}
+
+async function initCloud(){
+  if (!window.claude || typeof window.claude.use !== "function"){ if (gh && gh.token && gh.gist) await startGist(); else setCloud("local"); return; }
+  setCloud("loading");
+  try {
+    const [db, user] = await Promise.all([claude.use("db"), claude.use("user")]);
+    const uid = user ? await user.id() : null;
+    if (!db || !uid){ setCloud("local"); return; }
+    const ref = db.doc("data/users/" + uid + "/progress");
+    let first = true;
+    const to = setTimeout(() => setCloud("err"), 10000);
+    ref.onSnapshot(snap => {
+      if (snap.metadata.hasPendingWrites) return;
+      if (!snap.metadata.fromCache) clearTimeout(to);
+      const {changed, localNewer} = mergeRemote(snap.exists ? snap.data() : {});
+      if (first && !snap.metadata.fromCache){ first = false; cloud = {push: () => ref.set({v:1, s:P.s, t:P.t})}; }
+      if (changed){ writeJSON(KEY, P); render(); }
+      if (!cloud) return;
+      if (localNewer) schedulePush(); else if (!snap.metadata.fromCache) setCloud("ok");
+    }, () => { clearTimeout(to); cloud = null; setCloud("err"); });
+  } catch(e){ setCloud("local"); }
+}
+function saveS(){ writeJSON(SKEY, S); }
+
+function status(it){ return P.s[it.key] || ""; }
+function setStatus(it, st){
+  const old = status(it);
+  if (st === "k" && (old === "u" || old === "l")) st = "l";       // knew it after learning → learned
+  if (st) P.s[it.key] = st; else delete P.s[it.key];
+  P.t[it.key] = Date.now();
+  saveP();
+}
+function inSection(it, sec){
+  const s = status(it);
+  return sec === "all" ? true : sec === "todo" ? (!s || s === "u") : sec === "k" ? (s === "k" || s === "l") : s === sec;
+}
+
+// ---------- speech ----------
+let voices = [];
+function loadVoices(){
+  if (!("speechSynthesis" in window)) return;
+  voices = speechSynthesis.getVoices().filter(v => /^en[-_]/i.test(v.lang));
+  const sel = $("#sVoice"); if (!sel) return;
+  const acc = S.accent.toLowerCase();
+  const list = voices.filter(v => v.lang.replace("_","-").toLowerCase() === acc);
+  const use = list.length ? list : voices;
+  sel.innerHTML = '<option value="">تلقائي</option>' + use.map(v => `<option value="${esc(v.name)}">${esc(v.name)} (${esc(v.lang)})</option>`).join("");
+  sel.value = S.voice && use.some(v => v.name === S.voice) ? S.voice : "";
+}
+function pickVoice(){
+  if (S.voice){ const v = voices.find(v => v.name === S.voice); if (v) return v; }
+  const acc = S.accent.toLowerCase();
+  const list = voices.filter(v => v.lang.replace("_","-").toLowerCase() === acc);
+  const pref = ["Samantha","Daniel","Google US English","Google UK English Female","Ava","Serena","Alex","Karen"];
+  for (const n of pref){ const v = list.find(v => v.name.startsWith(n)); if (v) return v; }
+  return list.find(v => v.localService) || list[0] || voices[0] || null;
+}
+function speak(text){
+  if (!("speechSynthesis" in window)) { toast("المتصفح ما يدعم النطق"); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  const v = pickVoice(); if (v) { u.voice = v; u.lang = v.lang; } else u.lang = S.accent;
+  u.rate = +S.rate || 0.9;
+  speechSynthesis.speak(u);
+}
+if ("speechSynthesis" in window){ loadVoices(); speechSynthesis.onvoiceschanged = loadVoices; }
+
+// ---------- filtering ----------
+const norm = s => String(s||"").toLowerCase().normalize("NFKD").replace(/[ً-ْـ]/g,"");
+function pool(){
+  const q = norm($("#q").value.trim());
+  return items[S.ds].filter(it =>
+    (S.lvl === "all" || it.lvl === S.lvl) &&
+    (S.ds !== "work" || S.cat === "all" || it.cat === S.cat) &&
+    (!q || norm(it.w).includes(q) || norm(it.ar).includes(q) || norm(it.tr).includes(q)));
+}
+let deck = [], deckSig = "";
+function sig(){ return [S.ds,S.sec,S.lvl,S.cat,$("#q").value.trim(),S.order].join("|"); }
+function buildDeck(){
+  deck = pool().filter(it => inSection(it, S.sec)).map(it => it.key);
+  if (S.order === "shuffle") for (let i = deck.length-1; i > 0; i--){ const j = Math.floor(Math.random()*(i+1)); [deck[i],deck[j]] = [deck[j],deck[i]]; }
+  deckSig = sig();
+}
+
+// ---------- sidebar ----------
+function renderSide(){
+  document.querySelectorAll("#dsSeg button").forEach(b => b.classList.toggle("on", b.dataset.ds === S.ds));
+  const p = pool();
+  const lv = S.ds === "ox" ? LV_OX : LV_WORK;
+  // counts per level for the current section (ignores the level filter)
+  const lvSave = S.lvl; S.lvl = "all"; const base = pool().filter(it => inSection(it, S.sec)); S.lvl = lvSave;
+  let f = `<div class="pills">` + SECTIONS.map(([id,name,c]) =>
+    `<button class="pill ${S.sec===id?"on":""}" data-sec="${id}" style="--c:${c}"><span class="dot" style="background:${c}"></span>${name}<span class="cnt">${p.filter(it=>inSection(it,id)).length}</span></button>`).join("") + `</div>`;
+  f += `<div class="pills">` + [["all","كل المستويات"],...lv.map(l=>[l,l])].map(([v,t]) =>
+    `<button class="pill lv ${S.lvl===v?"on":""}" data-lvl="${v}"><span class="${v==="all"?"":"en"}">${t}</span><span class="cnt">${v==="all"?base.length:base.filter(it=>it.lvl===v).length}</span></button>`).join("") + `</div>`;
+  if (S.ds === "work") f += `<div class="pills">` +
+    [["all","كل المجالات"],...Object.entries(CATS)].map(([v,t]) => `<button class="pill lv ${S.cat===v?"on":""}" data-cat="${v}">${t}</button>`).join("") + `</div>`;
+  $("#fbar").innerHTML = f;
+  const all = items[S.ds];
+  $("#prog").innerHTML = lv.map(l => {
+    const a = all.filter(it => it.lvl === l); if (!a.length) return "";
+    const k = a.filter(it => status(it) === "k").length, le = a.filter(it => status(it) === "l").length, u = a.filter(it => status(it) === "u").length;
+    const pc = x => (x / a.length * 100).toFixed(2) + "%";
+    return `<div class="prow"><span class="lvl" style="background:var(--${l})">${l}</span>
+      <div class="bar" title="أعرفها ${k} · تعلمتها ${le} · أتعلمها ${u}"><i style="width:${pc(k)};background:var(--good)"></i><i style="width:${pc(le)};background:var(--learn)"></i><i style="width:${pc(u)};background:var(--bad);opacity:.55"></i></div>
+      <span class="n">${k+le}/${a.length}</span></div>`;
+  }).join("");
+}
+
+// ---------- shared bits ----------
+function stem(w){
+  const h = w.toLowerCase().split(/[ ,/]/)[0].replace(/[^a-z'-]/g,"");
+  if (h.length <= 3) return h;
+  return h.replace(/(e|y)$/,"");
+}
+function hl(sentence, it){
+  const s = stem(it.w); let out = esc(sentence);
+  if (s.length < 2) return out;
+  try { out = out.replace(new RegExp("\\b(" + s.replace(/[-']/g,"\\$&") + "[a-z]*)", "i"), "<b>$1</b>"); } catch(e){}
+  return out;
+}
+function headHTML(it, big){
+  const trShow = !S.trHide || revealed.has(it.key);
+  return `<div class="${big?"cw":"wbox"}">
+      <span class="word">${esc(it.w)}</span>${it.sense?` <span class="sense">(${esc(it.sense)})</span>`:""}
+      ${big?"<div>":""}<span class="ipa">${esc(it.ipa)}</span>${big?"</div>":""}
+    </div>${trShow && it.tr ? `<div class="tr">${esc(it.tr)}</div>` : ""}`;
+}
+function detHTML(it){
+  return `<div class="det">
+    <div class="meaning">${esc(it.ar)}</div>
+    ${it.pos ? `<div class="pos en">${esc(it.pos)}</div>` : ""}
+    ${it.cat ? `<div class="pos">${CATS[it.cat]||""}</div>` : ""}
+    ${it.exp ? `<div class="exp">${esc(it.exp)}</div>` : ""}
+    <div class="exs">${it.ex.map((x,i) => `<div class="ex"><div><div class="en">${hl(x.en, it)}</div><div class="ar">${esc(x.ar)}</div></div>
+      <button class="speak sm" data-say="${it.key}:${i}" title="اسمع الجملة">${SPK}</button></div>`).join("")}</div>
+  </div>`;
+}
+function actsHTML(it, big){
+  const s = status(it), c = big ? "" : "";
+  if (s === "u" || s === "l") return `<button class="btn l ${s==="l"?"on":""}" data-act="l" data-k="${it.key}">✓ تعلمتها</button>
+      <button class="btn u ${s==="u"?"on":""}" data-act="u" data-k="${it.key}">${s==="l"?"رجّعها للتعلّم":"ما زلت أتعلمها"}</button>`;
+  return `<button class="btn k ${s==="k"?"on":""}" data-act="k" data-k="${it.key}">أعرفها</button>
+      <button class="btn u" data-act="u" data-k="${it.key}">ما أعرفها</button>`;
+}
+const BADGE = {k:["k","أعرفها"],u:["u","أتعلمها"],l:["l","تعلمتها"]};
+function badge(it){ const b = BADGE[status(it)]; return b ? `<span class="badge ${b[0]}">${b[1]}</span>` : ""; }
+const lvlTag = it => `<span class="lvl" style="background:var(--${it.lvl})">${esc(it.lvl)}</span>`;
+
+// ---------- list view ----------
+const revealed = new Set();
+let shown = 60;
+function rowHTML(it){
+  const open = revealed.has(it.key);
+  return `<div class="row ${open?"open":""}" id="r-${it.key}">
+    <div class="rhead">
+      ${lvlTag(it)} ${badge(it)}
+      <div style="flex:1;min-width:200px">${headHTML(it,false)}</div>
+      <button class="speak" data-sayw="${it.key}" title="اسمع الكلمة">${SPK}</button>
+      <div class="acts">${actsHTML(it)}${open?"":`<button class="btn" data-act="show" data-k="${it.key}">إظهار المعنى</button>`}</div>
+    </div>
+    ${open ? detHTML(it) : ""}
+  </div>`;
+}
+function renderList(){
+  if (sig() !== deckSig) { buildDeck(); shown = 60; }
+  const v = $("#view");
+  if (!deck.length) { v.innerHTML = emptyHTML(); return; }
+  v.innerHTML = `<div class="list">${deck.slice(0, shown).map(k => rowHTML(byKey[k])).join("")}</div>` +
+    (deck.length > shown ? `<button class="btn more" id="bMore">عرض المزيد (${deck.length - shown} باقية)</button>` : "");
+  const m = $("#bMore");
+  if (m && "IntersectionObserver" in window){
+    const io = new IntersectionObserver(es => { if (es[0].isIntersecting){ io.disconnect(); shown += 60; renderList(); } }, {rootMargin:"400px"});
+    io.observe(m);
+  }
+}
+function refreshRow(k){ const el = document.getElementById("r-"+k); if (el) el.outerHTML = rowHTML(byKey[k]); }
+function removeRow(k){
+  const el = document.getElementById("r-"+k);
+  if (!el) return;
+  el.classList.add("gone");
+  setTimeout(() => { el.remove(); if (!deck.length) renderList(); else { const m = $("#bMore"); if (m) m.textContent = `عرض المزيد (${Math.max(deck.length - shown, 0)} باقية)`; } }, 180);
+}
+
+// ---------- card view ----------
+function cardIndex(){ const i = deck.indexOf(S.pos[deckSig]); return i < 0 ? 0 : i; }
+function renderCards(autoSpeak){
+  if (sig() !== deckSig) buildDeck();
+  const v = $("#view");
+  if (!deck.length) { v.innerHTML = emptyHTML(); return; }
+  const i = cardIndex(), it = byKey[deck[i]], open = revealed.has(it.key), s = status(it);
+  const pct = ((i+1) / deck.length * 100).toFixed(1);
+  v.innerHTML = `<div class="deck">
+    <div class="dprog"><span class="en">${i+1} / ${deck.length}</span><div class="bar"><i style="width:${pct}%;background:var(--accent)"></i></div></div>
+    <div class="card">
+      <div class="top2">${lvlTag(it)}${badge(it) || "<span></span>"}</div>
+      ${headHTML(it,true)}
+      <button class="speak big" data-sayw="${it.key}" title="اسمع الكلمة">${SPK}</button>
+      ${open ? detHTML(it) : `<div class="grow"></div>`}
+      <div class="cacts">
+        ${open ? `${actsHTML(it,true)}<button class="btn p wide" data-act="next">التالي ←</button>`
+               : `${actsHTML(it,true)}<button class="btn wide" data-act="show" data-k="${it.key}">إظهار المعنى بدون تقييم</button>`}
+      </div>
+    </div>
+    <div class="navrow">
+      <button class="btn" data-act="prev" ${i===0?"disabled":""}>→ السابقة</button>
+      <span class="hint" style="margin:0">${s ? "" : "اختر قبل ما يظهر المعنى"}</span>
+      <button class="btn" data-act="next">تخطّي ←</button>
+    </div>
+    <div class="kbd"><kbd>K</kbd> أعرفها · <kbd>J</kbd> ما أعرفها · <kbd>L</kbd> تعلمتها · <kbd>Space</kbd> إظهار · <kbd>S</kbd> نطق · <kbd>←</kbd> التالي · <kbd>→</kbd> السابق</div>
+  </div>`;
+}
+function go(d){
+  const i = cardIndex() + d;
+  if (i < 0) return;
+  if (i >= deck.length){ toast("خلصت هذي المجموعة 🎉"); return; }
+  S.pos[deckSig] = deck[i]; saveS(); renderCards(true);
+}
+
+function emptyHTML(){
+  const m = {todo:["خلصت كل الكلمات هنا 🎉","كل الكلمات في هذا المستوى صرت تعرفها. اختر مستوى ثاني، أو «الكل» لو تبي تشوفها."],u:["ما عندك كلمات تتعلمها حالياً","اضغط «ما أعرفها» على أي كلمة وتنضاف هنا."],
+    l:["لسا ما تعلمت كلمات","الكلمات اللي كانت في «ما أعرفها» وتعلمتها تظهر هنا للمراجعة."],k:["لسا ما حددت كلمات تعرفها",""],all:["ما فيه نتائج",""]}[S.sec] || ["",""];
+  return `<div class="empty"><b>${m[0]}</b>${m[1]}</div>`;
+}
+
+// ---------- render ----------
+function render(autoSpeak){
+  renderSide();
+  const secName = SECTIONS.find(s => s[0] === S.sec)[1];
+  const dsName = S.ds === "ox" ? "Oxford 3000" : "العمل والتقنية";
+  const lv = S.lvl === "all" ? "كل المستويات" : S.lvl;
+  $("#title").innerHTML = `${secName}<small>${dsName} · <span class="en">${lv}</span>${S.ds==="work"&&S.cat!=="all"?" · "+CATS[S.cat]:""}</small>`;
+  document.querySelectorAll("#viewSeg button").forEach(b => b.classList.toggle("on", b.dataset.v === S.view));
+  $("#hint").textContent = {
+    u:"الكلمات اللي قلت إنك ما تعرفها. لما تحفظ وحدة اضغط «تعلمتها» وتنتقل لـ«تعلمتها» و«أعرفها».",
+    l:"كل كلمة تعلمتها هنا — موجودة أيضاً في «أعرفها». راجعها من وقت لآخر.",
+    k:"الكلمات اللي تعرفها من قبل + اللي تعلمتها هنا.",
+    todo:"الكلمات اللي ما تعرفها + اللي لسا ما حددتها. أول ما تضغط «أعرفها» تختفي من هنا.", all:"كل الكلمات، بما فيها اللي تعرفها."}[S.sec] || "";
+  document.documentElement.dataset.theme = S.theme || "";
+  if (S.view === "cards") renderCards(autoSpeak); else renderList();
+}
+
+// ---------- events ----------
+let tt, undoFn = null;
+function toast(m, undo){
+  const t = $("#toast"); t.querySelector("span").textContent = m;
+  undoFn = undo || null; t.querySelector("button").hidden = !undo;
+  t.classList.add("show"); clearTimeout(tt);
+  tt = setTimeout(() => { t.classList.remove("show"); undoFn = null; }, undo ? 4500 : 2200);
+}
+$("#toast button").addEventListener("click", e => {
+  e.stopPropagation();
+  const f = undoFn; undoFn = null; $("#toast").classList.remove("show");
+  if (f) f();
+});
+
+function act(a, k){
+  if (a === "next") return go(1);
+  if (a === "prev") return go(-1);
+  const it = byKey[k]; if (!it) return;
+  if (a === "show"){ revealed.add(k); }
+  else {
+    const cur = status(it), prevT = P.t[k];
+    let st = a;
+    if (a === "k" && cur === "k") st = "";                // toggle off
+    setStatus(it, st);
+    if (!inSection(it, S.sec)) {                          // no longer belongs here → hide it
+      const idx = deck.indexOf(k), sigAt = deckSig;
+      if (idx >= 0) deck.splice(idx, 1);
+      revealed.delete(k);
+      if (S.view === "cards") { S.pos[deckSig] = deck[Math.min(Math.max(idx,0), deck.length - 1)]; saveS(); }
+      const msg = {k:"«" + it.w + "» انتقلت لـ«أعرفها»", l:"✓ «" + it.w + "» انتقلت لـ«تعلمتها» و«أعرفها»", u:"«" + it.w + "» انتقلت لـ«ما أعرفها»", "":"«" + it.w + "» رجعت بدون تقييم"}[status(it)];
+      toast(msg, () => {
+        if (cur) P.s[k] = cur; else delete P.s[k];
+        P.t[k] = Date.now();
+        saveP();
+        if (deckSig === sigAt && idx >= 0 && !deck.includes(k)) { deck.splice(idx, 0, k); if (S.view === "cards") { S.pos[deckSig] = k; saveS(); } }
+        render();
+      });
+      renderSide();
+      if (S.view === "cards") renderCards(); else removeRow(k);
+      return;
+    }
+    revealed.add(k);
+    if (a === "l") toast("✓ انضافت لـ«تعلمتها» و«أعرفها»");
+  }
+  renderSide();
+  if (S.view === "cards") renderCards(false); else refreshRow(k);
+}
+
+document.addEventListener("click", e => {
+  if ($("#side").classList.contains("open") && !e.target.closest("#side,#bMenu")) { closeSide(); return; }
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.sayw){ speak(byKey[b.dataset.sayw].w); return; }
+  if (b.dataset.say){ const [k,i] = b.dataset.say.split(":"); speak(byKey[k].ex[+i].en); return; }
+  if (b.dataset.act){ act(b.dataset.act, b.dataset.k); return; }
+  if (b.dataset.ds){ S.ds = b.dataset.ds; S.lvl = "all"; S.cat = "all"; saveS(); render(true); return; }
+  if (b.dataset.sec){ S.sec = b.dataset.sec; saveS(); closeSide(); render(true); return; }
+  if (b.dataset.lvl){ S.lvl = b.dataset.lvl; saveS(); render(true); return; }
+  if (b.dataset.cat){ S.cat = b.dataset.cat; saveS(); render(true); return; }
+  if (b.dataset.v){ S.view = b.dataset.v; saveS(); render(true); return; }
+});
+let qt; $("#q").addEventListener("input", () => { clearTimeout(qt); qt = setTimeout(() => render(false), 180); });
+
+document.addEventListener("keydown", e => {
+  if (S.view !== "cards" || e.target.matches("input,select,textarea") || $("#dlg").open || e.metaKey || e.ctrlKey) return;
+  const k = deck[cardIndex()]; if (!k) return;
+  const key = e.key.toLowerCase();
+  const map = {k:"k", "ن":"k", j:"u", "ت":"u", l:"l", "م":"l"};
+  if (map[key]) { act(map[key], k); e.preventDefault(); }
+  else if (key === " "){ act("show", k); e.preventDefault(); }
+  else if (key === "s" || key === "س"){ speak(byKey[k].w); }
+  else if (e.key === "ArrowLeft" || e.key === "Enter"){ go(1); e.preventDefault(); }
+  else if (e.key === "ArrowRight"){ go(-1); e.preventDefault(); }
+});
+
+// sidebar on mobile
+function closeSide(){ $("#side").classList.remove("open"); }
+$("#bMenu").onclick = () => $("#side").classList.toggle("open");
+
+// settings
+$("#bSettings").onclick = () => {
+  $("#sAccent").value = S.accent; loadVoices(); $("#sRate").value = S.rate; $("#sRateV").textContent = S.rate + "×";
+  $("#sOrder").value = S.order; $("#sTheme").value = S.theme; $("#sTrHide").checked = S.trHide;
+  renderGhBox();
+  $("#dlg").showModal();
+};
+$("#sAccent").onchange = e => { S.accent = e.target.value; S.voice = ""; saveS(); loadVoices(); speak("Hello, this is how I sound."); };
+$("#sVoice").onchange = e => { S.voice = e.target.value; saveS(); speak("Hello, this is how I sound."); };
+$("#sRate").oninput = e => { S.rate = +e.target.value; $("#sRateV").textContent = S.rate + "×"; saveS(); };
+$("#sOrder").onchange = e => { S.order = e.target.value; saveS(); render(false); };
+$("#sTheme").onchange = e => { S.theme = e.target.value; saveS(); document.documentElement.dataset.theme = S.theme; };
+$("#sTrHide").onchange = e => { S.trHide = e.target.checked; saveS(); render(false); };
+$("#bClose").onclick = () => $("#dlg").close();
+$("#bReset").onclick = () => {
+  if (!confirm("متأكد؟ بيمسح كل الكلمات اللي حددتها (أعرفها، أتعلمها، تعلمتها). خذ نسخة احتياطية قبل إذا تبي.")) return;
+  const now = Date.now(); for (const k in P.s){ delete P.s[k]; P.t[k] = now; } saveP(); revealed.clear(); S.pos = {}; saveS(); $("#dlg").close(); render(false); toast("تم مسح التقدم");
+};
+
+// backup
+let dlCap = null;
+if (window.claude && typeof window.claude.use === "function") claude.use("downloads").then(d => { dlCap = d; }, () => {});
+$("#bExport").onclick = async () => {
+  const json = JSON.stringify({app:"ox3000", savedAt:new Date().toISOString(), progress:P}, null, 1);
+  const filename = "oxford3000-progress-" + new Date().toISOString().slice(0,10) + ".json";
+  if (dlCap) { try { await dlCap.save({filename, data: json}); } catch(e){ if (e && e.code !== "declined") toast("تعذّر حفظ الملف هنا"); } return; }
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([json], {type:"application/json"}));
+  a.download = filename; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+};
+$("#bImport").onclick = () => $("#fImport").click();
+$("#fImport").onchange = async e => {
+  const f = e.target.files[0]; if (!f) return;
+  try {
+    const d = JSON.parse(await f.text()); const p = d.progress || d;
+    if (!p || typeof p.s !== "object") throw 0;
+    const n = Object.keys(p.s).filter(k => byKey[k]).length;
+    if (!confirm(`النسخة فيها ${n} كلمة مقيّمة. تبي تدمجها مع تقدمك الحالي؟`)) return;
+    for (const k in p.s) if (byKey[k]) { if (!P.t[k] || (p.t && p.t[k] > P.t[k])) { P.s[k] = p.s[k]; P.t[k] = (p.t && p.t[k]) || Date.now(); } }
+    saveP(); render(false); toast("تم استرجاع التقدم");
+  } catch(err){ toast("الملف غير صالح"); }
+  e.target.value = "";
+};
+
+render(false);
+initCloud().then(() => { if (!storageOK && !cloud) toast("المتصفح مانع الحفظ — استخدم «حفظ نسخة احتياطية»"); });
+})();
+</script>
+</body>
+</html>
